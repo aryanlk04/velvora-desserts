@@ -5,6 +5,7 @@ import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 // Assets
 import velvoraLogo from "@assets/velvora_1781446789857.PNG";
+const velvoraLogoTransparent = `${import.meta.env.BASE_URL}velvora-logo-transparent.png`;
 import biscoffImg from "@assets/biscoff_1781446961031.jpg";
 import blueberryImg from "@assets/bluberry_1781446961032.jpg";
 import brownieImg from "@assets/brownie_1781446961032.jpg";
@@ -107,13 +108,19 @@ export default function Home() {
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <button onClick={() => scrollTo("hero")} className="relative z-10 flex items-center gap-2 group">
-             <img 
-               src={velvoraLogo} 
-               alt="VELVORA Logo" 
-               className="h-10 w-auto object-contain transition-transform duration-500 group-hover:scale-105" 
-             />
-             <span className="font-serif font-bold text-xl tracking-wider text-foreground">VELVORA</span>
+          <button onClick={() => scrollTo("hero")} className="relative z-10 group">
+            <img
+              src={velvoraLogoTransparent}
+              alt="VELVORA Logo"
+              className="transition-transform duration-500 group-hover:scale-105"
+              style={{
+                height: "72px",
+                width: "auto",
+                objectFit: "contain",
+                background: "transparent",
+                display: "block",
+              }}
+            />
           </button>
 
           {/* Desktop Nav */}
@@ -185,6 +192,20 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="max-w-3xl"
           >
+            <div className="mb-8">
+              <img
+                src={velvoraLogoTransparent}
+                alt="VELVORA Desserts"
+                style={{
+                  height: "140px",
+                  width: "auto",
+                  objectFit: "contain",
+                  background: "transparent",
+                  display: "block",
+                  filter: "drop-shadow(0 4px 24px rgba(200,150,90,0.35))",
+                }}
+              />
+            </div>
             <span className="inline-block py-1 px-3 border border-[#C8965A]/30 rounded-full text-[#C8965A] text-sm tracking-widest uppercase mb-6 backdrop-blur-sm">
               Desserts That Stay With You
             </span>
