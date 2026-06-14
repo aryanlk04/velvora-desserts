@@ -196,9 +196,9 @@ export default function Home() {
               Desserts That Stay With You
             </span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-6 tracking-tight text-white drop-shadow-lg">
-              Handcrafted 🤍<br/>
+              Handcrafted<br/>
               <span className="text-[#C8965A] italic font-medium">Desserts.</span><br/>
-              Made 🤍 With 🤍 Love.
+              Made With Love.
             </h1>
             <p className="text-lg md:text-xl text-[#F7F0E8]/80 mb-10 max-w-2xl font-light leading-relaxed">
               Premium brownies, cheesecakes, churros, tres leches and hot chocolate crafted fresh for every order.
