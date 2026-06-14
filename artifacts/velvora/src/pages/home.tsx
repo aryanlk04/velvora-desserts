@@ -4,8 +4,7 @@ import { Menu, X, Star, Heart, ChefHat, Sparkles, Coffee, Instagram, Gift, Flame
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 // Assets
-import velvoraLogo from "@assets/velvora_1781446789857.PNG";
-const velvoraLogoTransparent = `${import.meta.env.BASE_URL}velvora-logo-transparent.png`;
+import velvoraLogo from "@assets/velvora_1781462306011.PNG";
 import biscoffImg from "@assets/biscoff_1781446961031.jpg";
 import blueberryImg from "@assets/bluberry_1781446961032.jpg";
 import brownieImg from "@assets/brownie_1781446961032.jpg";
@@ -108,19 +107,22 @@ export default function Home() {
         }`}
       >
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <button onClick={() => scrollTo("hero")} className="relative z-10 group">
+          <button onClick={() => scrollTo("hero")} className="relative z-10 flex items-center gap-3 group">
             <img
-              src={velvoraLogoTransparent}
+              src={velvoraLogo}
               alt="VELVORA Logo"
-              className="transition-transform duration-500 group-hover:scale-105"
+              className="flex-shrink-0 transition-transform duration-500 group-hover:scale-105"
               style={{
-                height: "72px",
+                height: "clamp(45px, 5vw, 68px)",
                 width: "auto",
                 objectFit: "contain",
-                background: "transparent",
                 display: "block",
               }}
             />
+            <div className="flex flex-col leading-tight">
+              <span className="font-serif font-bold text-lg md:text-xl tracking-wider text-foreground">VELVORA</span>
+              <span className="text-[10px] md:text-xs tracking-[0.15em] text-primary uppercase font-medium">Desserts That Stay With You</span>
+            </div>
           </button>
 
           {/* Desktop Nav */}
@@ -192,20 +194,6 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="max-w-3xl"
           >
-            <div className="mb-8">
-              <img
-                src={velvoraLogoTransparent}
-                alt="VELVORA Desserts"
-                style={{
-                  height: "140px",
-                  width: "auto",
-                  objectFit: "contain",
-                  background: "transparent",
-                  display: "block",
-                  filter: "drop-shadow(0 4px 24px rgba(200,150,90,0.35))",
-                }}
-              />
-            </div>
             <span className="inline-block py-1 px-3 border border-[#C8965A]/30 rounded-full text-[#C8965A] text-sm tracking-widest uppercase mb-6 backdrop-blur-sm">
               Desserts That Stay With You
             </span>
@@ -215,21 +203,24 @@ export default function Home() {
               Made With Love.
             </h1>
             <p className="text-lg md:text-xl text-[#F7F0E8]/80 mb-10 max-w-2xl font-light leading-relaxed">
-              Premium brownies, cheesecakes, tiramisu and signature desserts crafted fresh for every order. Experience opulent warmth in every bite.
+              Premium brownies, cheesecakes, churros, tres leches and hot chocolate crafted fresh for every order.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button 
+              <button
                 onClick={() => scrollTo("menu")}
                 className="bg-[#C8965A] text-[#2d180b] px-8 py-4 rounded-full font-medium tracking-wide hover:bg-white transition-all duration-300 shadow-lg text-center"
               >
-                Order Now
-              </button>
-              <button 
-                onClick={() => scrollTo("menu")}
-                className="border-2 border-[#C8965A] text-[#C8965A] px-8 py-4 rounded-full font-medium tracking-wide hover:bg-[#C8965A] hover:text-[#2d180b] transition-all duration-300 text-center"
-              >
                 View Menu
               </button>
+              <a
+                href={`${WHATSAPP_URL}?text=${encodeURIComponent("Hi VELVORA! I'd like to place an order.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 border-2 border-[#C8965A] text-[#C8965A] px-8 py-4 rounded-full font-medium tracking-wide hover:bg-[#C8965A] hover:text-[#2d180b] transition-all duration-300 text-center"
+              >
+                <FaWhatsapp size={20} />
+                Order on WhatsApp
+              </a>
             </div>
           </motion.div>
         </div>
