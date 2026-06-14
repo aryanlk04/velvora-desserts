@@ -244,7 +244,7 @@ export default function Home() {
               <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-primary rounded-full flex items-center justify-center text-primary-foreground p-6 text-center shadow-lg z-20 animate-[spin_20s_linear_infinite]">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <path id="curve" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent" />
-                  <text fontSize="7.2" letterSpacing="3" className="font-serif uppercase fill-current">
+                  <text fontSize="8.5" letterSpacing="2.2" className="font-serif uppercase fill-current">
                     <textPath href="#curve">HANDCRAFTED WITH LOVE ✦ </textPath>
                   </text>
                 </svg>
