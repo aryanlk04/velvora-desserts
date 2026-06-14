@@ -115,14 +115,12 @@ export default function Home() {
               style={{
                 height: "clamp(45px, 5vw, 68px)",
                 width: "auto",
-                objectFit: "contain",
+                objectFit: "cover",
                 display: "block",
+                borderRadius: "50%",
               }}
             />
-            <div className="flex flex-col leading-tight">
-              <span className="font-serif font-bold text-lg md:text-xl tracking-wider text-foreground">VELVORA</span>
-              <span className="text-[10px] md:text-xs tracking-[0.15em] text-primary uppercase font-medium">Desserts That Stay With You</span>
-            </div>
+            <span className="font-serif font-bold text-lg md:text-xl tracking-wider text-foreground">VELVORA</span>
           </button>
 
           {/* Desktop Nav */}
