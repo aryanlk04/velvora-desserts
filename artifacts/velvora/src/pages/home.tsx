@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Star, Heart, ChefHat, Sparkles, Coffee, Instagram } from "lucide-react";
+import { Menu, X, Star, Heart, ChefHat, Sparkles, Coffee, Instagram, Gift, Flame } from "lucide-react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 
 // Assets
@@ -13,7 +13,7 @@ import mangoImg from "@assets/mango_1781446961032.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
 };
 
 const staggerContainer = {
@@ -26,9 +26,60 @@ const staggerContainer = {
   }
 };
 
+const WHATSAPP_URL = "https://wa.me/918951586767";
+
+type MenuItem = {
+  name: string;
+  desc: string;
+  price: string;
+  img: string | null;
+  bestSeller?: boolean;
+};
+
+type ComboItem = {
+  name: string;
+  contents: string[];
+  price: string;
+  images: (string | null)[];
+  bestSeller?: boolean;
+};
+
+function ComboImageCollage({ images }: { images: (string | null)[] }) {
+  const valid = images.filter(Boolean) as string[];
+  if (valid.length === 0) {
+    return <div className="w-full h-full bg-gradient-to-br from-primary/20 to-foreground/10 flex items-center justify-center"><span className="font-serif text-primary/40 text-4xl">V</span></div>;
+  }
+  if (valid.length === 1) {
+    return <img src={valid[0]} alt="combo" className="w-full h-full object-cover" />;
+  }
+  if (valid.length === 2) {
+    return (
+      <div className="w-full h-full grid grid-cols-2 gap-0.5">
+        {valid.map((img, i) => <img key={i} src={img} alt={`combo-${i}`} className="w-full h-full object-cover" />)}
+      </div>
+    );
+  }
+  if (valid.length === 3) {
+    return (
+      <div className="w-full h-full grid grid-cols-2 gap-0.5">
+        <img src={valid[0]} alt="combo-0" className="w-full h-full object-cover row-span-2" style={{ gridRow: "span 2" }} />
+        <img src={valid[1]} alt="combo-1" className="w-full h-full object-cover" />
+        <img src={valid[2]} alt="combo-2" className="w-full h-full object-cover" />
+      </div>
+    );
+  }
+  return (
+    <div className="w-full h-full grid grid-cols-2 grid-rows-2 gap-0.5">
+      {valid.slice(0, 4).map((img, i) => <img key={i} src={img} alt={`combo-${i}`} className="w-full h-full object-cover" />)}
+    </div>
+  );
+}
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeMenuTab, setActiveMenuTab] = useState("cheesecakes");
+  const tabScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -219,75 +270,273 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Menu Section */}
+      {/* Menu Section */}
       <section id="menu" className="py-24 md:py-32 bg-[#FAF6F0] border-y border-border/50">
         <div className="container mx-auto px-6">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="text-center max-w-3xl mx-auto mb-20"
+            className="text-center max-w-3xl mx-auto mb-14"
           >
-            <span className="text-primary font-medium tracking-widest uppercase text-sm mb-4 block">Indulge Yourself</span>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">Signature Collection</h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            <span className="text-primary font-medium tracking-widest uppercase text-sm mb-4 block">Our Official Menu</span>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">The VELVORA Collection</h2>
+            <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+            <p className="text-muted-foreground text-lg">Every item freshly crafted for your order. Select a category to explore.</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { category: "Brownies", name: "Fudgy Brownies", desc: "Deep fudgy layers of pure chocolate bliss", price: 280, img: brownieImg },
-              { category: "Cheesecakes", name: "Baked Cheesecake", desc: "Classic New York style, perfectly baked", price: 420, img: mangoImg },
-              { category: "Cheesecakes", name: "Lotus Biscoff", desc: "Spiced Biscoff crust with silky caramel filling", price: 380, img: biscoffImg },
-              { category: "Cheesecakes", name: "Blueberry Bliss", desc: "Creamy cheesecake crowned with fresh blueberries", price: 380, img: blueberryImg },
-              { category: "Tiramisu", name: "Classic Tiramisu", desc: "Italian espresso-soaked layers of mascarpone cream", price: 350, img: null },
-              { category: "Tres Leches", name: "Milk Cake", desc: "Airy sponge soaked in three silky milks", price: 320, img: null },
-              { category: "Signature", name: "Churros & Dip", desc: "Golden crispy churros with rich dark chocolate", price: 350, img: churrosImg },
-              { category: "Signature", name: "Dessert Boxes", desc: "Curated assortments, perfect for gifting", price: 480, img: null },
-              { category: "Signature", name: "Seasonal Specials", desc: "Limited edition creations, crafted for the moment", price: 299, img: null }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0, y: 30 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.1 } }
-                }}
-                className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-card-border"
+          {/* Tab Navigation */}
+          <div ref={tabScrollRef} className="flex gap-2 overflow-x-auto pb-3 mb-12 snap-x" style={{ scrollbarWidth: "none", msOverflowStyle: "none" } as React.CSSProperties}>
+            {([
+              { id: "cheesecakes", label: "Cheesecakes" },
+              { id: "brownies", label: "Brownies" },
+              { id: "churros", label: "Churros" },
+              { id: "tresleches", label: "Tres Leches" },
+              { id: "hotchocolate", label: "Hot Chocolate" },
+              { id: "fullcakes", label: "Full Cheesecakes" },
+              { id: "combos", label: "Combos" },
+            ] as { id: string; label: string }[]).map((tab) => (
+              <button
+                key={tab.id}
+                data-testid={`tab-${tab.id}`}
+                onClick={() => setActiveMenuTab(tab.id)}
+                className={`snap-start flex-shrink-0 px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 border ${
+                  activeMenuTab === tab.id
+                    ? "bg-foreground text-background border-foreground shadow-md"
+                    : "bg-background text-foreground border-border hover:border-primary hover:text-primary"
+                }`}
               >
-                <div className="aspect-[4/3] w-full overflow-hidden bg-primary/10 relative">
-                  {item.img ? (
-                    <img 
-                      src={item.img} 
-                      alt={item.name} 
-                      className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700" 
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-primary/20 to-foreground/10 flex items-center justify-center p-8 text-center">
-                      <div className="w-24 h-24 rounded-full border border-primary/30 flex items-center justify-center">
-                         <span className="font-serif text-primary/50 text-2xl">V</span>
-                      </div>
-                    </div>
-                  )}
-                  <div className="absolute top-4 left-4 bg-background/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-foreground uppercase tracking-wider">
-                    {item.category}
-                  </div>
-                </div>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-4 gap-4">
-                    <h3 className="font-serif text-2xl font-bold text-card-foreground leading-tight">{item.name}</h3>
-                    <span className="font-serif text-xl font-medium text-primary">₹{item.price}</span>
-                  </div>
-                  <p className="text-muted-foreground mb-8 line-clamp-2 h-12">{item.desc}</p>
-                  <button className="w-full py-3 rounded-xl border border-primary text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-colors duration-300 tracking-wide uppercase text-sm">
-                    Order Now
-                  </button>
-                </div>
-              </motion.div>
+                {tab.label}
+              </button>
             ))}
           </div>
+
+          {/* Tab Content */}
+          <AnimatePresence mode="wait">
+            {activeMenuTab !== "combos" && (() => {
+              const menuData: Record<string, { whatsappMsg: string; items: MenuItem[] }> = {
+                cheesecakes: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order a Cheesecake.",
+                  items: [
+                    { name: "Biscoff Cheesecake", desc: "Spiced Lotus Biscoff crust layered with silky caramel cream cheese filling", price: "₹119", img: biscoffImg, bestSeller: true },
+                    { name: "Blueberry Cheesecake", desc: "Velvety cream cheese crowned with a luscious fresh blueberry compote", price: "₹169", img: blueberryImg },
+                    { name: "Mango Cheesecake", desc: "Tropical mango mousse over a buttery biscuit base — summer in every bite", price: "₹129", img: mangoImg },
+                    { name: "Strawberry Cheesecake", desc: "Classic cream cheese filling with a fresh strawberry glaze on top", price: "₹129", img: null },
+                  ],
+                },
+                brownies: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order Brownies.",
+                  items: [
+                    { name: "Classic Brownie", desc: "Deep, fudgy chocolate brownie with a crinkle-top crust — pure indulgence", price: "₹69", img: brownieImg, bestSeller: true },
+                    { name: "Walnut Brownie", desc: "Rich chocolate brownie studded with crunchy whole walnuts throughout", price: "₹99", img: brownieImg },
+                    { name: "Almond Brownie", desc: "Dense fudge brownie topped with toasted almonds and a hint of sea salt", price: "₹109", img: brownieImg },
+                    { name: "Mini Brownie (8 pcs) + Dip", desc: "Eight bite-sized fudge brownies served with a warm chocolate dipping sauce", price: "₹149", img: brownieImg },
+                  ],
+                },
+                churros: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order Churros.",
+                  items: [
+                    { name: "Classic Churros", desc: "Golden crispy churros dusted with cinnamon sugar and rich dark chocolate dip", price: "₹109", img: churrosImg, bestSeller: true },
+                    { name: "Lotus Biscoff Churros", desc: "Crispy churros drizzled with warm Biscoff spread and crushed cookie crumble", price: "₹119", img: churrosImg },
+                  ],
+                },
+                tresleches: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order Tres Leches.",
+                  items: [
+                    { name: "Classic Tres Leches", desc: "Airy sponge cake soaked in three silky milks, chilled and finished with whipped cream", price: "₹199", img: null, bestSeller: true },
+                  ],
+                },
+                hotchocolate: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order a Hot Chocolate.",
+                  items: [
+                    { name: "Classic Hot Chocolate", desc: "Velvety warm dark chocolate blended into steamed milk — rich and comforting", price: "₹109", img: null },
+                    { name: "Marshmallow Hot Chocolate", desc: "Our signature hot chocolate crowned with toasted mini marshmallows", price: "₹139", img: null },
+                  ],
+                },
+                fullcakes: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order a Full Cheesecake.",
+                  items: [
+                    { name: "Biscoff Cheesecake (Full)", desc: "A full Lotus Biscoff cheesecake — perfect for celebrations and gifting", price: "₹899", img: biscoffImg, bestSeller: true },
+                    { name: "Blueberry Cheesecake (Full)", desc: "A generous whole blueberry cheesecake, beautifully presented", price: "₹1199", img: blueberryImg },
+                    { name: "Mango Cheesecake (Full)", desc: "Full tropical mango cheesecake — ideal for parties and events", price: "₹949", img: mangoImg },
+                    { name: "Strawberry Cheesecake (Full)", desc: "Elegant full strawberry cheesecake with glossy berry topping", price: "₹999", img: null },
+                  ],
+                },
+              };
+              const current = menuData[activeMenuTab];
+              if (!current) return null;
+              return (
+                <motion.div
+                  key={activeMenuTab}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+                    {current.items.map((item, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: i * 0.07 }}
+                        data-testid={`card-menu-${activeMenuTab}-${i}`}
+                        className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-card-border flex flex-col"
+                      >
+                        <div className="aspect-[4/3] w-full overflow-hidden bg-primary/10 relative flex-shrink-0">
+                          {item.img ? (
+                            <img src={item.img} alt={item.name} className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700" />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-[#C8965A]/20 via-[#8B4513]/10 to-[#3B1F0E]/10 flex items-center justify-center">
+                              <div className="w-20 h-20 rounded-full border-2 border-primary/30 flex items-center justify-center">
+                                <span className="font-serif text-primary/60 text-3xl font-bold">V</span>
+                              </div>
+                            </div>
+                          )}
+                          {item.bestSeller && (
+                            <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider flex items-center gap-1">
+                              <Flame size={11} />
+                              Best Seller
+                            </div>
+                          )}
+                        </div>
+                        <div className="p-5 flex flex-col flex-1">
+                          <div className="flex justify-between items-start mb-2 gap-2">
+                            <h3 className="font-serif text-lg font-bold text-card-foreground leading-tight">{item.name}</h3>
+                            <span className="font-serif text-lg font-bold text-primary flex-shrink-0">{item.price}</span>
+                          </div>
+                          <p className="text-muted-foreground text-sm mb-5 leading-relaxed flex-1">{item.desc}</p>
+                          <a
+                            href={`${WHATSAPP_URL}?text=${encodeURIComponent(`Hi VELVORA! I'd like to order: ${item.name} (${item.price})`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-testid={`btn-order-${activeMenuTab}-${i}`}
+                            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#25D366] text-white font-medium hover:bg-[#128C7E] transition-colors duration-300 tracking-wide text-sm"
+                          >
+                            <FaWhatsapp size={16} />
+                            Order via WhatsApp
+                          </a>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="flex justify-center">
+                    <a
+                      href={`${WHATSAPP_URL}?text=${encodeURIComponent(current.whatsappMsg)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-[#128C7E] transition-all shadow-md text-base"
+                    >
+                      <FaWhatsapp size={22} />
+                      Order All {activeMenuTab === "cheesecakes" ? "Cheesecakes" : activeMenuTab === "brownies" ? "Brownies" : activeMenuTab === "churros" ? "Churros" : activeMenuTab === "tresleches" ? "Tres Leches" : activeMenuTab === "hotchocolate" ? "Hot Chocolates" : "Full Cheesecakes"} via WhatsApp
+                    </a>
+                  </div>
+                </motion.div>
+              );
+            })()}
+
+            {activeMenuTab === "combos" && (() => {
+              const combos: ComboItem[] = [
+                {
+                  name: "Combo 1",
+                  contents: ["Any 1 Cheesecake (Biscoff / Blueberry)", "Classic Churros"],
+                  price: "₹199 / ₹229",
+                  images: [biscoffImg, churrosImg],
+                },
+                {
+                  name: "Combo 2",
+                  contents: ["Classic Churros", "Classic Brownie", "Classic Hot Chocolate"],
+                  price: "₹269",
+                  images: [churrosImg, brownieImg, null],
+                },
+                {
+                  name: "Combo 3",
+                  contents: ["Any 1 Cheesecake (Biscoff / Blueberry)", "Classic Brownie", "Tres Leches"],
+                  price: "₹369 / ₹399",
+                  images: [biscoffImg, brownieImg, null],
+                },
+                {
+                  name: "Combo 4",
+                  contents: ["Any 1 Cheesecake (Biscoff / Blueberry)", "Classic Churros", "Classic Brownie", "Hot Chocolate", "Tres Leches"],
+                  price: "₹549 / ₹599",
+                  images: [biscoffImg, churrosImg, brownieImg, blueberryImg],
+                  bestSeller: true,
+                },
+              ];
+              return (
+                <motion.div
+                  key="combos"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    {combos.map((combo, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: i * 0.08 }}
+                        data-testid={`card-combo-${i}`}
+                        className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-card-border flex flex-col"
+                      >
+                        <div className="aspect-[4/3] w-full overflow-hidden relative flex-shrink-0">
+                          <ComboImageCollage images={combo.images} />
+                          {combo.bestSeller && (
+                            <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider flex items-center gap-1 z-10">
+                              <Flame size={11} />
+                              Best Value
+                            </div>
+                          )}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f07]/60 via-transparent to-transparent pointer-events-none"></div>
+                          <div className="absolute bottom-3 left-3 right-3">
+                            <span className="font-serif text-white text-xl font-bold drop-shadow">{combo.name}</span>
+                          </div>
+                        </div>
+                        <div className="p-5 flex flex-col flex-1">
+                          <ul className="space-y-1.5 mb-4 flex-1">
+                            {combo.contents.map((c, j) => (
+                              <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <span className="text-primary mt-0.5 flex-shrink-0">✦</span>
+                                <span>{c}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="flex items-center justify-between mb-4">
+                            <span className="font-serif text-xl font-bold text-primary">{combo.price}</span>
+                            <span className="text-xs text-muted-foreground bg-primary/10 px-2 py-1 rounded-full">Save More</span>
+                          </div>
+                          <a
+                            href={`${WHATSAPP_URL}?text=${encodeURIComponent(`Hi VELVORA! I'd like to order ${combo.name}: ${combo.contents.join(", ")} (${combo.price})`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            data-testid={`btn-order-combo-${i}`}
+                            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#25D366] text-white font-medium hover:bg-[#128C7E] transition-colors duration-300 tracking-wide text-sm"
+                          >
+                            <FaWhatsapp size={16} />
+                            Order via WhatsApp
+                          </a>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <div className="flex justify-center">
+                    <a
+                      href={`${WHATSAPP_URL}?text=${encodeURIComponent("Hi VELVORA! I'd like to know more about your combos.")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-[#128C7E] transition-all shadow-md text-base"
+                    >
+                      <FaWhatsapp size={22} />
+                      Order a Combo via WhatsApp
+                    </a>
+                  </div>
+                </motion.div>
+              );
+            })()}
+          </AnimatePresence>
         </div>
       </section>
 

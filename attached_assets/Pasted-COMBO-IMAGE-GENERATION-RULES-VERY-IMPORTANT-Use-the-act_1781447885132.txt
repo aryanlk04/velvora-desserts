@@ -1,0 +1,101 @@
+COMBO IMAGE GENERATION RULES (VERY IMPORTANT)
+
+Use the actual uploaded VELVORA product photos to create the combo showcase images.
+
+DO NOT generate generic AI combo images.
+
+For every combo card, automatically combine the corresponding product photos from the uploaded images and create a clean premium collage/composition.
+
+Combo 1
+
+Contents:
+
+* Any 1 Cheesecake (Biscoff / Blueberry)
+* Classic Churros
+
+Display:
+
+* Biscoff Cheesecake photo + Churros photo
+    OR
+* Blueberry Cheesecake photo + Churros photo
+
+Arrange them together in a premium dessert platter style.
+
+⸻
+
+Combo 2
+
+Contents:
+
+* Classic Churros
+* Classic Brownie
+* Classic Hot Chocolate
+
+Display:
+
+* Churros photo
+* Brownie photo
+* Hot Chocolate photo
+
+Create a single elegant combo composition using these actual images.
+
+⸻
+
+Combo 3
+
+Contents:
+
+* Any 1 Cheesecake (Biscoff / Blueberry)
+* Classic Brownie
+* Tres Leches
+
+Display:
+
+* Cheesecake photo
+* Brownie photo
+* Tres Leches photo
+
+Combine them into one premium visual.
+
+⸻
+
+Combo 4
+
+Contents:
+
+* Any 1 Cheesecake (Biscoff / Blueberry)
+* Classic Churros
+* Classic Brownie
+* Classic Hot Chocolate
+* Tres Leches
+
+Display:
+
+* Cheesecake photo
+* Churros photo
+* Brownie photo
+* Hot Chocolate photo
+* Tres Leches photo
+
+Create a luxury dessert spread using the uploaded images.
+
+⸻
+
+Image Handling Instructions
+
+* Always prioritize uploaded VELVORA images.
+* Never replace uploaded products with stock images.
+* Preserve original dessert appearance.
+* Remove backgrounds if necessary.
+* Use subtle shadows and premium presentation.
+* Keep consistent beige, cream, and chocolate-brown branding.
+* Maintain identical image style across all combo cards.
+* Optimize for mobile and desktop.
+
+Dynamic Combo Logic
+
+If menu items are changed in the future, automatically regenerate combo visuals by combining the images of the products included in that combo.
+
+For example:
+If Combo 1 contains Biscoff Cheesecake + Churros, use those exact uploaded photos.
+If Combo 1 later changes to Blueberry Cheesecake + Churros, update the combo image automatically using those corresponding uploaded photos.

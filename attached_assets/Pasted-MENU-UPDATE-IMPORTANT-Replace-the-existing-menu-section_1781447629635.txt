@@ -1,0 +1,109 @@
+MENU UPDATE – IMPORTANT
+
+Replace the existing menu section completely with the following official VELVORA menu.
+
+Remove:
+
+* Tiramisu
+* Signature Dessert Boxes
+* Seasonal Specials
+* Any placeholder menu items not listed below
+
+Use these exact categories and prices:
+
+Cheesecake
+
+* Biscoff Cheesecake – ₹119
+* Blueberry Cheesecake – ₹169
+* Mango Cheesecake – ₹129
+* Strawberry Cheesecake – ₹129
+
+Brownies
+
+* Classic Brownie – ₹69
+* Walnut Brownie – ₹99
+* Almond Brownie – ₹109
+* Mini Brownie (8 pcs) + Dip – ₹149
+
+Churros
+
+* Classic Churros – ₹109
+* Lotus Biscoff Churros – ₹119
+
+Tres Leches
+
+* Classic Tres Leches – ₹199
+
+Full Cheesecakes
+
+* Biscoff Cheesecake – ₹899
+* Blueberry Cheesecake – ₹1199
+* Mango Cheesecake – ₹949
+* Strawberry Cheesecake – ₹999
+
+Hot Chocolate
+
+* Classic Hot Chocolate – ₹109
+* Marshmallow Hot Chocolate – ₹139
+
+⸻
+
+VELVORA Combos
+
+Combo 1
+
+Any 1 Cheesecake (Biscoff / Blueberry)
+
+* Classic Churros
+    Price:
+    ₹199 / ₹229
+
+Combo 2
+
+Classic Churros
+
+* Classic Brownie
+* Classic Hot Chocolate
+    Price:
+    ₹269
+
+Combo 3
+
+Any 1 Cheesecake (Biscoff / Blueberry)
+
+* Classic Brownie
+* Tres Leches
+    Price:
+    ₹369 / ₹399
+
+Combo 4
+
+Any 1 Cheesecake (Biscoff / Blueberry)
+
+* Classic Churros
+* Classic Brownie
+* Classic Hot Chocolate
+* Tres Leches
+    Price:
+    ₹549 / ₹599
+
+⸻
+
+Menu Design Instructions
+
+* Create a premium luxury menu showcase section inspired by boutique dessert cafés.
+* Use separate tabs/cards for Cheesecake, Brownies, Churros, Tres Leches, Hot Chocolate, Full Cheesecakes and Combos.
+* Show product images beside each category.
+* Use beige, cream and chocolate-brown colors matching the VELVORA branding.
+* Add elegant hover animations.
+* Display prices clearly.
+* Highlight best sellers:
+    * Biscoff Cheesecake
+    * Classic Brownie
+    * Classic Churros
+    * Classic Tres Leches
+* Add “Order via WhatsApp” button under each category.
+* Mobile-friendly design.
+* Use actual uploaded VELVORA dessert photos wherever possible instead of stock images.
+
+⸻
