@@ -10,6 +10,7 @@ import blueberryImg from "@assets/bluberry_1781446961032.jpg";
 import brownieImg from "@assets/brownie_1781446961032.jpg";
 import churrosImg from "@assets/churros_1781446961032.jpg";
 import mangoImg from "@assets/mango_1781446961032.jpg";
+import treslechesImg from "@assets/tresleches_1781448501026.jpg";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -344,7 +345,7 @@ export default function Home() {
                 tresleches: {
                   whatsappMsg: "Hi VELVORA! I'd like to order Tres Leches.",
                   items: [
-                    { name: "Classic Tres Leches", desc: "Airy sponge cake soaked in three silky milks, chilled and finished with whipped cream", price: "₹199", img: null, bestSeller: true },
+                    { name: "Classic Tres Leches", desc: "Airy sponge cake soaked in three silky milks, chilled and finished with whipped cream", price: "₹199", img: treslechesImg, bestSeller: true },
                   ],
                 },
                 hotchocolate: {
@@ -454,13 +455,7 @@ export default function Home() {
                   name: "Combo 3",
                   contents: ["Any 1 Cheesecake (Biscoff / Blueberry)", "Classic Brownie", "Tres Leches"],
                   price: "₹369 / ₹399",
-                  images: [biscoffImg, brownieImg, null],
-                },
-                {
-                  name: "Combo 4",
-                  contents: ["Any 1 Cheesecake (Biscoff / Blueberry)", "Classic Churros", "Classic Brownie", "Hot Chocolate", "Tres Leches"],
-                  price: "₹549 / ₹599",
-                  images: [biscoffImg, churrosImg, brownieImg, blueberryImg],
+                  images: [biscoffImg, brownieImg, treslechesImg],
                   bestSeller: true,
                 },
               ];
@@ -472,7 +467,7 @@ export default function Home() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 max-w-5xl mx-auto">
                     {combos.map((combo, i) => (
                       <motion.div
                         key={i}
@@ -486,8 +481,8 @@ export default function Home() {
                           <ComboImageCollage images={combo.images} />
                           {combo.bestSeller && (
                             <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider flex items-center gap-1 z-10">
-                              <Flame size={11} />
-                              Best Value
+                              <Star size={11} fill="currentColor" />
+                              Most Popular
                             </div>
                           )}
                           <div className="absolute inset-0 bg-gradient-to-t from-[#1a0f07]/60 via-transparent to-transparent pointer-events-none"></div>
