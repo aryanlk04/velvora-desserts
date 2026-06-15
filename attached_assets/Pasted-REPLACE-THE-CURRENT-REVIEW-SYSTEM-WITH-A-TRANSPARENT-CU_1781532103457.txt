@@ -1,0 +1,93 @@
+REPLACE THE CURRENT REVIEW SYSTEM WITH A TRANSPARENT CUSTOMER REVIEW SYSTEM.
+
+Real Customer Reviews Only
+
+Remove all AI-generated reviews, placeholder reviews, and fake customer names.
+
+Display only reviews submitted by real customers.
+
+Review Submission Form
+
+Allow customers to:
+
+* Enter Name
+* Select Rating (1–5 Stars)
+* Write Review
+* Upload Dessert Photo (Optional)
+* Submit Review
+
+Instant Publishing
+
+Reviews should be published immediately after submission.
+
+Do NOT require admin approval before displaying reviews.
+
+Customers should see their review appear instantly in the Reviews section.
+
+Admin Controls
+
+Create an admin panel where I can:
+
+* Delete spam reviews
+* Delete inappropriate reviews
+* Remove fake or abusive content
+* Feature selected reviews
+
+Reviews should not require approval, but admins should be able to remove reviews if necessary.
+
+Transparency Notice
+
+Display the following message above the reviews section:
+
+“All reviews on this page are submitted directly by VELVORA customers. Reviews may only be removed if they contain spam, offensive content, or unrelated material.”
+
+Review Display
+
+Each review card should show:
+
+* Customer Name
+* Star Rating
+* Review Text
+* Review Date
+* Uploaded Photo (if available)
+
+Featured Reviews
+
+Allow admins to mark reviews as:
+
+⭐ Featured Review
+
+Featured reviews should appear at the top of the section.
+
+Customer Photo Gallery
+
+Create a “Customer Moments” gallery using photos uploaded by customers in reviews.
+
+Review Statistics
+
+Automatically display:
+
+* Average Rating
+* Total Reviews
+* Number of 5-Star Reviews
+
+Example:
+
+★★★★★ 4.9/5 based on 42 customer reviews
+
+Design Requirements
+
+* Match the VELVORA luxury beige, cream, and chocolate-brown theme.
+* Mobile responsive.
+* Smooth animations.
+* Premium review cards.
+* Fast loading.
+
+Important
+
+* No AI-generated reviews.
+* No placeholder reviews.
+* No fake customer names.
+* Reviews should be genuine customer submissions only.
+* Publish reviews instantly after submission.
+* Admin can remove reviews later if they are spam or inappropriate.
