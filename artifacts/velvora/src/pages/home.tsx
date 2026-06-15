@@ -80,6 +80,322 @@ function ComboImageCollage({ images }: { images: (string | null)[] }) {
   );
 }
 
+interface ReviewData {
+  id: number;
+  name: string;
+  rating: number;
+  reviewText: string;
+  photoPath: string | null;
+  status: string;
+  createdAt: string;
+}
+
+interface UploadResponse {
+  uploadURL: string;
+  objectPath: string;
+}
+
+const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+function ReviewsSection() {
+  const [reviews, setReviews] = useState<ReviewData[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+
+  const [formName, setFormName] = useState("");
+  const [formRating, setFormRating] = useState(0);
+  const [formHover, setFormHover] = useState(0);
+  const [formText, setFormText] = useState("");
+  const [formPhoto, setFormPhoto] = useState<File | null>(null);
+  const [formPhotoPreview, setFormPhotoPreview] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  useEffect(() => {
+    fetch(`${BASE}/api/reviews`)
+      .then((r) => r.json())
+      .then((data: ReviewData[]) => setReviews(data))
+      .catch(() => setReviews([]))
+      .finally(() => setReviewsLoading(false));
+  }, []);
+
+  function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFormPhoto(file);
+    const url = URL.createObjectURL(file);
+    setFormPhotoPreview(url);
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setSubmitError("");
+
+    if (!formName.trim()) { setSubmitError("Please enter your name."); return; }
+    if (formRating === 0) { setSubmitError("Please select a star rating."); return; }
+    if (formText.trim().length < 10) { setSubmitError("Review must be at least 10 characters."); return; }
+
+    setSubmitting(true);
+    try {
+      let photoPath: string | null = null;
+
+      if (formPhoto) {
+        const urlRes = await fetch(`${BASE}/api/storage/uploads/request-url`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: formPhoto.name, size: formPhoto.size, contentType: formPhoto.type }),
+        });
+        if (!urlRes.ok) throw new Error("Photo upload failed");
+        const { uploadURL, objectPath }: UploadResponse = await urlRes.json();
+        await fetch(uploadURL, { method: "PUT", headers: { "Content-Type": formPhoto.type }, body: formPhoto });
+        photoPath = objectPath;
+      }
+
+      const res = await fetch(`${BASE}/api/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: formName.trim(), rating: formRating, reviewText: formText.trim(), photoPath }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: "Submission failed" }));
+        throw new Error(err.error ?? "Submission failed");
+      }
+
+      setSubmitted(true);
+      setFormName(""); setFormRating(0); setFormText(""); setFormPhoto(null); setFormPhotoPreview(null);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <section id="reviews" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+
+      <div className="container relative z-10 mx-auto px-6">
+        {/* Section heading */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="text-center max-w-3xl mx-auto mb-20"
+        >
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">Sweet Words</h2>
+          <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-8"></div>
+          <p className="text-lg text-muted-foreground">
+            Real experiences from real VELVORA customers — every word genuine, every bite unforgettable.
+          </p>
+        </motion.div>
+
+        {/* Approved Reviews Display */}
+        {reviewsLoading ? (
+          <div className="flex justify-center mb-20">
+            <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin"></div>
+          </div>
+        ) : reviews.length === 0 ? (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center py-16 mb-16"
+          >
+            <Heart size={48} className="text-primary/40 mx-auto mb-4" />
+            <p className="font-serif text-2xl text-foreground/60">Be the first to share your VELVORA experience ❤️</p>
+          </motion.div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+            {reviews.map((review, i) => (
+              <motion.div
+                key={review.id}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.95 },
+                  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: i * 0.08 } }
+                }}
+                className="bg-card p-8 rounded-2xl shadow-sm border border-card-border flex flex-col"
+              >
+                <div className="flex gap-1 text-primary mb-4">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} size={16} fill={j < review.rating ? "currentColor" : "none"} />
+                  ))}
+                </div>
+                {review.photoPath && (
+                  <img
+                    src={`${BASE}/api/storage${review.photoPath}`}
+                    alt="Customer photo"
+                    className="w-full h-40 object-cover rounded-xl mb-4 border border-border"
+                  />
+                )}
+                <p className="text-muted-foreground italic mb-4 leading-relaxed flex-1">"{review.reviewText}"</p>
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
+                  <p className="font-serif font-bold text-foreground">— {review.name}</p>
+                  <p className="text-xs text-muted-foreground/70">
+                    {new Date(review.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
+
+        {/* Submit Review Form */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="max-w-2xl mx-auto"
+        >
+          <div className="bg-card border border-card-border rounded-3xl p-8 md:p-12 shadow-sm">
+            <h3 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-2 text-center">
+              Share Your VELVORA Experience
+            </h3>
+            <p className="text-muted-foreground text-center mb-8 text-sm">
+              Your review will appear after approval. We read every single one. 💛
+            </p>
+
+            {submitted ? (
+              <div className="text-center py-8">
+                <Heart size={48} className="text-primary mx-auto mb-4" />
+                <h4 className="font-serif text-xl font-bold text-foreground mb-2">Thank you so much! 🎉</h4>
+                <p className="text-muted-foreground">Your review has been submitted and is pending approval. We truly appreciate your kind words.</p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="mt-6 text-primary underline underline-offset-2 text-sm hover:text-primary/80 transition-colors"
+                >
+                  Submit another review
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">Your Name *</label>
+                  <input
+                    type="text"
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
+                    placeholder="e.g. Priya S."
+                    maxLength={100}
+                    className="w-full border border-border rounded-xl px-4 py-3 text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 placeholder:text-muted-foreground/50 transition"
+                    required
+                  />
+                </div>
+
+                {/* Star Rating */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">Your Rating *</label>
+                  <div className="flex gap-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setFormRating(star)}
+                        onMouseEnter={() => setFormHover(star)}
+                        onMouseLeave={() => setFormHover(0)}
+                        className="focus:outline-none transition-transform hover:scale-110"
+                        aria-label={`${star} star${star > 1 ? "s" : ""}`}
+                      >
+                        <Star
+                          size={32}
+                          className={`transition-colors ${
+                            star <= (formHover || formRating)
+                              ? "text-primary fill-primary"
+                              : "text-border fill-border"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                    {(formHover || formRating) > 0 && (
+                      <span className="ml-2 text-sm text-muted-foreground self-center">
+                        {["", "Poor", "Fair", "Good", "Great", "Excellent!"][formHover || formRating]}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Review text */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">Your Review *</label>
+                  <textarea
+                    value={formText}
+                    onChange={(e) => setFormText(e.target.value)}
+                    placeholder="Tell us about your VELVORA experience — the taste, the packaging, the occasion..."
+                    rows={4}
+                    minLength={10}
+                    maxLength={2000}
+                    className="w-full border border-border rounded-xl px-4 py-3 text-foreground bg-background focus:outline-none focus:ring-2 focus:ring-primary/30 placeholder:text-muted-foreground/50 resize-none transition"
+                    required
+                  />
+                  <p className="text-xs text-muted-foreground/60 mt-1 text-right">{formText.length}/2000</p>
+                </div>
+
+                {/* Photo upload */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">
+                    Dessert Photo <span className="text-muted-foreground font-normal">(optional)</span>
+                  </label>
+                  {formPhotoPreview ? (
+                    <div className="relative inline-block">
+                      <img
+                        src={formPhotoPreview}
+                        alt="Preview"
+                        className="w-32 h-32 object-cover rounded-xl border border-border"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => { setFormPhoto(null); setFormPhotoPreview(null); }}
+                        className="absolute -top-2 -right-2 w-6 h-6 bg-foreground text-background rounded-full flex items-center justify-center text-xs hover:bg-primary transition-colors"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="flex items-center gap-3 border-2 border-dashed border-border rounded-xl px-6 py-4 cursor-pointer hover:border-primary/50 hover:bg-primary/5 transition-colors group">
+                      <Sparkles size={20} className="text-muted-foreground group-hover:text-primary transition-colors" />
+                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                        Click to upload a photo of your dessert
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handlePhotoChange}
+                      />
+                    </label>
+                  )}
+                </div>
+
+                {/* Error */}
+                {submitError && (
+                  <p className="text-red-500 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3">{submitError}</p>
+                )}
+
+                {/* Submit */}
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full bg-primary text-primary-foreground rounded-full py-4 font-serif tracking-widest hover:bg-primary/90 transition-all shadow-md disabled:opacity-60 disabled:cursor-not-allowed text-sm uppercase"
+                >
+                  {submitting ? "Submitting…" : "Submit Review"}
+                </button>
+              </form>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -578,51 +894,7 @@ export default function Home() {
       </section>
 
       {/* Reviews Section */}
-      <section id="reviews" className="py-24 md:py-32 bg-background relative overflow-hidden">
-        {/* Decorative background element */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        
-        <div className="container relative z-10 mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center max-w-3xl mx-auto mb-20"
-          >
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">Sweet Words</h2>
-            <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-8"></div>
-            <p className="text-lg text-muted-foreground">Don't just take our word for it. Here's what our beloved customers have to say about the VELVORA experience.</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { text: "Best brownies I've ever had! The chocolate flavor is absolutely divine.", author: "Priya S." },
-              { text: "Beautiful presentation and amazing taste. Every celebration feels special.", author: "Aarav M." },
-              { text: "Perfect for celebrations. The Biscoff cheesecake was absolutely dreamy.", author: "Neha R." }
-            ].map((review, i) => (
-              <motion.div 
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0, scale: 0.95 },
-                  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: i * 0.1 } }
-                }}
-                className="bg-card p-8 rounded-2xl shadow-sm border border-card-border"
-              >
-                <div className="flex gap-1 text-primary mb-6">
-                  {[...Array(5)].map((_, j) => <Star key={j} size={18} fill="currentColor" />)}
-                </div>
-                <p className="text-muted-foreground italic mb-6 leading-relaxed">"{review.text}"</p>
-                <p className="font-serif font-bold text-foreground">— {review.author}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReviewsSection />
 
       {/* Instagram & CTA Section Combined */}
       <section id="contact" className="py-24 md:py-32 bg-primary/10">
