@@ -11,6 +11,10 @@ import brownieImg from "@assets/brownie_1781446961032.jpg";
 import churrosImg from "@assets/churros_1781446961032.jpg";
 import mangoImg from "@assets/mango_1781446961032.jpg";
 import treslechesImg from "@assets/tresleches_1781448501026.jpg";
+import walnutImg from "@assets/walnut_1781530558854.png";
+import almondImg from "@assets/almond_1781530558854.png";
+import miniBrownieImg from "@assets/mini_brownie_1781530558855.png";
+import biscoffChurrosImg from "@assets/churros_1_1781530558855.png";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -340,16 +344,16 @@ export default function Home() {
                   whatsappMsg: "Hi VELVORA! I'd like to order Brownies.",
                   items: [
                     { name: "Classic Brownie", desc: "Deep, fudgy chocolate brownie with a crinkle-top crust — pure indulgence", price: "₹69", img: brownieImg, bestSeller: true },
-                    { name: "Walnut Brownie", desc: "Rich chocolate brownie studded with crunchy whole walnuts throughout", price: "₹99", img: brownieImg },
-                    { name: "Almond Brownie", desc: "Dense fudge brownie topped with toasted almonds and a hint of sea salt", price: "₹109", img: brownieImg },
-                    { name: "Mini Brownie (8 pcs) + Dip", desc: "Eight bite-sized fudge brownies served with a warm chocolate dipping sauce", price: "₹149", img: brownieImg },
+                    { name: "Walnut Brownie", desc: "Rich chocolate brownie studded with crunchy whole walnuts throughout", price: "₹99", img: walnutImg },
+                    { name: "Almond Brownie", desc: "Dense fudge brownie topped with toasted almonds and a hint of sea salt", price: "₹109", img: almondImg },
+                    { name: "Mini Brownie (8 pcs) + Dip", desc: "Eight bite-sized fudge brownies served with a warm chocolate dipping sauce", price: "₹149", img: miniBrownieImg },
                   ],
                 },
                 churros: {
                   whatsappMsg: "Hi VELVORA! I'd like to order Churros.",
                   items: [
                     { name: "Classic Churros", desc: "Golden crispy churros dusted with cinnamon sugar and rich dark chocolate dip", price: "₹109", img: churrosImg, bestSeller: true },
-                    { name: "Lotus Biscoff Churros", desc: "Crispy churros drizzled with warm Biscoff spread and crushed cookie crumble", price: "₹119", img: churrosImg },
+                    { name: "Lotus Biscoff Churros", desc: "Crispy churros drizzled with warm Biscoff spread and crushed cookie crumble", price: "₹119", img: biscoffChurrosImg },
                   ],
                 },
                 tresleches: {
