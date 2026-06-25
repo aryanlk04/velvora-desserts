@@ -400,6 +400,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Navigation */}
       <nav
+        aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "bg-background/80 backdrop-blur-md shadow-sm py-3" : "bg-transparent py-5"
         }`}
@@ -470,6 +471,7 @@ export default function Home() {
         </AnimatePresence>
       </nav>
 
+      <main id="main-content">
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#2d180b]">
         {/* Background Image with Overlay */}
@@ -933,6 +935,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="bg-foreground text-background/80 py-16 border-t border-background/10">

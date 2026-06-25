@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://velvora.in/sitemap.xml
