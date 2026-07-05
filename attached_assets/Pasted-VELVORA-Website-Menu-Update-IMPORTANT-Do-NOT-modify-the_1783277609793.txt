@@ -1,0 +1,143 @@
+VELVORA Website Menu Update
+
+IMPORTANT
+
+Do NOT modify the website’s premium design, luxury theme, layout, colors, typography, animations, responsiveness, spacing, header, footer, navigation, homepage, About section, Reviews section, Contact section, SEO, favicon, Google Search Console setup, customer ordering system, payment integration, admin dashboard, customer accounts, or any other existing functionality.
+
+The website currently looks perfect. Keep the entire website visually and functionally exactly the same.
+
+⸻
+
+MENU UPDATES
+
+1. Remove the Hot Chocolate Section Completely
+
+Delete the entire Hot Chocolate category from the menu.
+
+Remove:
+
+* The section title
+* All Hot Chocolate products
+* All Hot Chocolate images
+* All prices
+* Any references anywhere on the website
+
+⸻
+
+2. Replace Hot Chocolate with Tiramisu
+
+Create a new category called:
+
+TIRAMISU
+
+The section must have the same premium design and styling as every other menu category.
+
+Add only one product:
+
+Classic Tiramisu
+
+Price:
+₹199
+
+Use the Tiramisu image that I upload.
+
+Display it using the exact same premium product card style as the rest of the desserts.
+
+⸻
+
+3. Remove Only These Cheesecake Flavours
+
+Remove these two products completely:
+
+* Mango Cheesecake
+* Strawberry Cheesecake
+
+Delete:
+
+* Product cards
+* Images
+* Prices
+* Buttons
+* Any references throughout the website
+
+⸻
+
+4. Keep Every Other Menu Item Exactly the Same
+
+Do NOT modify, rename, remove, or change any other menu item.
+
+Specifically keep:
+
+* Every remaining Cheesecake exactly as it is.
+* Every Churros item exactly as it is.
+* Every Brownie item exactly as it is.
+* Keep Mini Brownie Box (8 pcs) + Dip exactly as it is.
+* Keep Tres Leches exactly as it is.
+* Keep all existing prices.
+* Keep all product images.
+* Keep all product descriptions.
+
+⸻
+
+5. Combo Section
+
+Do NOT modify any combo unless it contains one of the removed products.
+
+If any combo contains:
+
+* Hot Chocolate
+* Mango Cheesecake
+* Strawberry Cheesecake
+
+Replace only those removed products with suitable existing menu items while maintaining the combo’s premium appearance and pricing logic.
+
+Do not modify any other combos.
+
+⸻
+
+6. Ordering System
+
+Ensure the updated menu is reflected everywhere:
+
+* Menu page
+* Shopping cart
+* Add to Cart
+* Checkout
+* Customer orders
+* Admin dashboard
+* Order summary
+* Payment flow
+
+Customers should be able to order the new Classic Tiramisu exactly like every other dessert.
+
+⸻
+
+7. Database
+
+Remove deleted products from the product database.
+
+Add:
+
+* Classic Tiramisu
+* Price: ₹199
+
+Ensure it works with:
+
+* Cart
+* Orders
+* Payments
+* Admin dashboard
+* Customer order history
+
+⸻
+
+8. Final Requirement
+
+After making these changes:
+
+* Build successfully.
+* Ensure there are no errors.
+* Deploy the updated website to Vercel.
+* Keep every other part of the website exactly the same.
+
+Only perform the menu updates requested above. Nothing else should change.

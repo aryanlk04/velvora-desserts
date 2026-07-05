@@ -9,7 +9,6 @@ import biscoffImg from "@assets/biscoff_1781446961031.jpg";
 import blueberryImg from "@assets/bluberry_1781446961032.jpg";
 import brownieImg from "@assets/brownie_1781446961032.jpg";
 import churrosImg from "@assets/churros_1781446961032.jpg";
-import mangoImg from "@assets/mango_1781446961032.jpg";
 import treslechesImg from "@assets/tresleches_1781448501026.jpg";
 import walnutImg from "@assets/walnut_1781530558854.png";
 import almondImg from "@assets/almond_1781530558854.png";
@@ -604,7 +603,7 @@ export default function Home() {
               { id: "brownies", label: "Brownies" },
               { id: "churros", label: "Churros" },
               { id: "tresleches", label: "Tres Leches" },
-              { id: "hotchocolate", label: "Hot Chocolate" },
+              { id: "tiramisu", label: "Tiramisu" },
               { id: "fullcakes", label: "Full Cheesecakes" },
               { id: "combos", label: "Combos" },
             ] as { id: string; label: string }[]).map((tab) => (
@@ -632,8 +631,6 @@ export default function Home() {
                   items: [
                     { name: "Biscoff Cheesecake", desc: "Spiced Lotus Biscoff crust layered with silky caramel cream cheese filling", price: "₹119", img: biscoffImg, bestSeller: true },
                     { name: "Blueberry Cheesecake", desc: "Velvety cream cheese crowned with a luscious fresh blueberry compote", price: "₹169", img: blueberryImg },
-                    { name: "Mango Cheesecake", desc: "Tropical mango mousse over a buttery biscuit base — summer in every bite", price: "₹129", img: mangoImg },
-                    { name: "Strawberry Cheesecake", desc: "Classic cream cheese filling with a fresh strawberry glaze on top", price: "₹129", img: null },
                   ],
                 },
                 brownies: {
@@ -658,11 +655,10 @@ export default function Home() {
                     { name: "Classic Tres Leches", desc: "Airy sponge cake soaked in three silky milks, chilled and finished with whipped cream", price: "₹199", img: treslechesImg, bestSeller: true },
                   ],
                 },
-                hotchocolate: {
-                  whatsappMsg: "Hi VELVORA! I'd like to order a Hot Chocolate.",
+                tiramisu: {
+                  whatsappMsg: "Hi VELVORA! I'd like to order a Tiramisu.",
                   items: [
-                    { name: "Classic Hot Chocolate", desc: "Velvety warm dark chocolate blended into steamed milk — rich and comforting", price: "₹109", img: null },
-                    { name: "Marshmallow Hot Chocolate", desc: "Our signature hot chocolate crowned with toasted mini marshmallows", price: "₹139", img: null },
+                    { name: "Classic Tiramisu", desc: "Layers of espresso-soaked sponge and silky mascarpone cream, dusted with cocoa", price: "₹199", img: null, bestSeller: true },
                   ],
                 },
                 fullcakes: {
@@ -670,8 +666,6 @@ export default function Home() {
                   items: [
                     { name: "Biscoff Cheesecake (Full)", desc: "A full Lotus Biscoff cheesecake — perfect for celebrations and gifting", price: "₹899", img: biscoffImg, bestSeller: true },
                     { name: "Blueberry Cheesecake (Full)", desc: "A generous whole blueberry cheesecake, beautifully presented", price: "₹1199", img: blueberryImg },
-                    { name: "Mango Cheesecake (Full)", desc: "Full tropical mango cheesecake — ideal for parties and events", price: "₹949", img: mangoImg },
-                    { name: "Strawberry Cheesecake (Full)", desc: "Elegant full strawberry cheesecake with glossy berry topping", price: "₹999", img: null },
                   ],
                 },
               };
@@ -740,7 +734,7 @@ export default function Home() {
                       className="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-[#128C7E] transition-all shadow-md text-base"
                     >
                       <FaWhatsapp size={22} />
-                      Order All {activeMenuTab === "cheesecakes" ? "Cheesecakes" : activeMenuTab === "brownies" ? "Brownies" : activeMenuTab === "churros" ? "Churros" : activeMenuTab === "tresleches" ? "Tres Leches" : activeMenuTab === "hotchocolate" ? "Hot Chocolates" : "Full Cheesecakes"} via WhatsApp
+                      Order All {activeMenuTab === "cheesecakes" ? "Cheesecakes" : activeMenuTab === "brownies" ? "Brownies" : activeMenuTab === "churros" ? "Churros" : activeMenuTab === "tresleches" ? "Tres Leches" : activeMenuTab === "tiramisu" ? "Tiramisu" : "Full Cheesecakes"} via WhatsApp
                     </a>
                   </div>
                 </motion.div>
@@ -757,7 +751,7 @@ export default function Home() {
                 },
                 {
                   name: "Combo 2",
-                  contents: ["Classic Churros", "Classic Brownie", "Classic Hot Chocolate"],
+                  contents: ["Classic Churros", "Classic Brownie", "Classic Tiramisu"],
                   price: "₹269",
                   images: [churrosImg, brownieImg, null],
                 },
