@@ -10,6 +10,7 @@ import blueberryImg from "@assets/bluberry_1781446961032.jpg";
 import brownieImg from "@assets/brownie_1781446961032.jpg";
 import churrosImg from "@assets/churros_1781446961032.jpg";
 import treslechesImg from "@assets/tresleches_1781448501026.jpg";
+import tiramisuImg from "@assets/image_1783277924004.png";
 import walnutImg from "@assets/walnut_1781530558854.png";
 import almondImg from "@assets/almond_1781530558854.png";
 import miniBrownieImg from "@assets/mini_brownie_1781530558855.png";
@@ -629,7 +630,7 @@ export default function Home() {
                 cheesecakes: {
                   whatsappMsg: "Hi VELVORA! I'd like to order a Cheesecake.",
                   items: [
-                    { name: "Biscoff Cheesecake", desc: "Spiced Lotus Biscoff crust layered with silky caramel cream cheese filling", price: "₹119", img: biscoffImg, bestSeller: true },
+                    { name: "Biscoff Cheesecake", desc: "Spiced Lotus Biscoff crust layered with silky caramel cream cheese filling", price: "₹129", img: biscoffImg, bestSeller: true },
                     { name: "Blueberry Cheesecake", desc: "Velvety cream cheese crowned with a luscious fresh blueberry compote", price: "₹169", img: blueberryImg },
                   ],
                 },
@@ -658,7 +659,7 @@ export default function Home() {
                 tiramisu: {
                   whatsappMsg: "Hi VELVORA! I'd like to order a Tiramisu.",
                   items: [
-                    { name: "Classic Tiramisu", desc: "Layers of espresso-soaked sponge and silky mascarpone cream, dusted with cocoa", price: "₹199", img: null, bestSeller: true },
+                    { name: "Classic Tiramisu", desc: "Layers of espresso-soaked sponge and silky mascarpone cream, dusted with cocoa", price: "₹199", img: tiramisuImg, bestSeller: true },
                   ],
                 },
                 fullcakes: {
@@ -752,8 +753,8 @@ export default function Home() {
                 {
                   name: "Combo 2",
                   contents: ["Classic Churros", "Classic Brownie", "Classic Tiramisu"],
-                  price: "₹269",
-                  images: [churrosImg, brownieImg, null],
+                  price: "₹349",
+                  images: [churrosImg, brownieImg, tiramisuImg],
                 },
                 {
                   name: "Combo 3",
